@@ -13,6 +13,8 @@ $(function() {
     * a related set of tests. This suite is all about the RSS
     * feeds definitions, the allFeeds variable in our application.
     */
+    var allFeedsLength=allFeeds.length,
+    entbefore,entafter;
     describe('RSS Feeds', function() {
         /* This is our first test - it tests to make sure that the
          * allFeeds variable has been defined and that it is not
@@ -31,7 +33,7 @@ $(function() {
          * in the allFeeds object and ensures it has a URL defined
          * and that the URL is not empty.
          */
-         it('has url & not empty',function(){
+         it('has url & not empty', function(){
             for (var i = 0; i < allFeedsLength; i++) {
                expect(allFeeds[i].url).toBeDefined();
                expect(allFeeds[i].url.length).not.toBe(0);
@@ -43,7 +45,7 @@ $(function() {
          * and that the name is not empty.
          */
          it('has name $ not empty',function(){
-            for (var i = 0; i < T allFeedsLength; i++) {
+            for (var i = 0; i < allFeedsLength; i++) {
                expect(allFeeds[i].name).toBeDefined();
                expect(allFeeds[i].name.length).not.toBe(0);
             }
@@ -106,12 +108,14 @@ $(function() {
          beforeEach(function (done){
             $('.feed').empty();
             loadFeed(0,function(){
+                var entbefore=$('.feed').find('h2').text();
                 done();
             });
          });
          it('when a new feed is loaded the content actually changes',function(done){
             loadFeed(1,function(){
                 var entafter=$('.feed').find('h2').text();
+                expect(entbefore).not.toEqual(entafter);
                 done();
             });
          }); 
